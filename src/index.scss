@@ -110,6 +110,7 @@ header {
 }
 
 .drawer {
+  display: flex;
   position: absolute;
   width: 420px;
   right: 0;
@@ -121,6 +122,7 @@ header {
   flex-direction: column;
 
   .items {
+    flex: 1;
     overflow: auto;
     margin-bottom: 40px;
   }

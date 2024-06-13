@@ -121,7 +121,8 @@ header {
   flex-direction: column;
 
   .items {
-    flex: 1;
+    overflow: auto;
+    margin-bottom: 40px;
   }
 
   h2 {
@@ -161,7 +162,7 @@ header {
 
     img {
       position: absolute;
-      right: 40px;
+      right: 30px;
       top: 20px;
       transition: transform 0.15s ease-in-out;
     }

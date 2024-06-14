@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card} from "./components/Card";
 import {Header} from "./components/Header";
 import {Draver} from "./components/Draver";
 
 
+
 function App() {
-    return (
+    const [items, setItems] = useState([]);
+    const [cartOpened, setCartOpened] = useState(false);
+    useEffect(() => {
+        fetch("https://666c2f5a49dbc5d7145d048a.mockapi.io/items")
+            .then(res => res.json())
+            .then(data => setItems(data));
+    }, []);
+
+       return (
         <div className="wrapper clear">
-
-            <Draver />
-            <Header />
-
+            {cartOpened && <Draver onCloseCart={() => setCartOpened(false)} />}
+            <Header onClickCart={() => setCartOpened(true)} />
             <div className="d-flex justify-between align-center p-40 ">
                 <img className="br-20" src={`${process.env.PUBLIC_URL}img/banner.png`}
                      alt="" width={1000} height={500}/>
@@ -24,10 +31,10 @@ function App() {
                     </div>
                 </div>
 
-                <div className="d-flex">
-                    <Card />
-                    <Card />
-
+                <div className="d-flex flex-wrap justify-start">
+                    {items.map((obj) => {
+                        return <Card key={obj.id} {...obj} />
+                    })}
                 </div>
             </div>
         </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-export const Draver = () => {
+export const Draver = ({onCloseCart}) => {
     return (
-        <div style={{display: "none"}} className="overlay">
+        <div className="overlay">
             <div className="drawer">
                 <h2 className="d-flex justify-between mb-30">Корзина
-                    <img className="removeBtn cu-p" src={`${process.env.PUBLIC_URL}/img/btn-remove.svg`} alt="shoes"/>
+                    <img onClick={onCloseCart} className="removeBtn cu-p" src={`${process.env.PUBLIC_URL}/img/btn-remove.svg`} alt="close"/>
                 </h2>
                 <div className="items">
                     <div className="cartItem d-flex align-center mb-20">

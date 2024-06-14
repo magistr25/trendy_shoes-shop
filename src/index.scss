@@ -28,7 +28,7 @@ header {
 
   img {
     margin-right: 15px;
-    border-radius: 50%;
+
   }
 
   h3, p {
@@ -42,54 +42,10 @@ header {
   }
 }
 
-.card {
-  border: 1px solid #f3f3f3;
-  padding: 20px;
-  width: 220px;
-  border-radius: 40px;
-  margin-right: 35px;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-
-
-  &:hover {
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
-    transform: translateY(-5px);
-
-  }
-
-  .favorite {
-    position: absolute;
-    cursor: pointer;
-  }
-
-
-  span {
-    font-size: 13px;
-    opacity: 0.5;
-    text-transform: uppercase;
-  }
-
-  b {
-    font-size: 13px;
-  }
-
-  h5 {
-    font-weight: 400;
-    font-size: 14px;
-  }
-
-  .button {
-    background: #ffffff;
-    border: 1px solid #F2F2F2;
-    box-sizing: border-box;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-  }
-}
-
 .search-block {
   border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  padding: 0 15px;
 
   input {
     border: 0;
@@ -111,6 +67,7 @@ header {
 
 .drawer {
   display: flex;
+  flex-direction: column;
   position: absolute;
   width: 420px;
   right: 0;
@@ -118,8 +75,8 @@ header {
   background: #ffffff;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  display: flex;
-  flex-direction: column;
+
+
 
   .items {
     flex: 1;

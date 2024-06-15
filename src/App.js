@@ -9,6 +9,7 @@ function App() {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [cartOpened, setCartOpened] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         fetch("https://666c2f5a49dbc5d7145d048a.mockapi.io/items")
@@ -29,6 +30,10 @@ function App() {
         });
     };
 
+    const onChangeSearchInput = (event) => {
+        setSearchValue(event.target.value);
+    }
+
 
         return (
         <div className="wrapper clear">
@@ -40,10 +45,15 @@ function App() {
             </div>
             <div className="content p-40">
                 <div className="d-flex justify-between align-center mb-40">
-                    <h1>Все кроссовки</h1>
+                    <h1>{searchValue? `Поиск по запросу: "${searchValue}"` : "Все кроссовки"}</h1>
                     <div className="search-block d-flex">
-                        <img src={`${process.env.PUBLIC_URL}img/search.svg`} alt="search" width={18} height={18}/>
-                        <input placeholder={"Поиск..."}/>
+                        <img src={`${process.env.PUBLIC_URL}img/search.svg`} alt="Search" width={18} height={18}/>
+                        <input onChange={onChangeSearchInput} value={searchValue} placeholder={"Поиск..."} />
+                        {searchValue && (
+                            <img onClick={()=>setSearchValue("")} className="clear cu-p" width={21} height={21}
+                            src={`${process.env.PUBLIC_URL}img/btn-remove.svg`}
+                            alt="Btn-remove" />
+                        )}
                     </div>
                 </div>
 

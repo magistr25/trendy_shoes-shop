@@ -3,7 +3,7 @@ import React from 'react';
 export const Header = ({onClickCart}) => {
     return (
         <header className="d-flex justify-between align-center p-40">
-            <div className="d-flex align-center">
+            <div className="d-flex align-center ">
                 <img width={75} height={50} src={`${process.env.PUBLIC_URL}/img/logo2.png`} alt="logo"/>
                 <div>
                     <h3 className="text-uppercase">TRENDY SHOES</h3>

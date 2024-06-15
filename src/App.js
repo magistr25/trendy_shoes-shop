@@ -7,16 +7,32 @@ import {Draver} from "./components/Draver";
 
 function App() {
     const [items, setItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
     const [cartOpened, setCartOpened] = useState(false);
+
     useEffect(() => {
         fetch("https://666c2f5a49dbc5d7145d048a.mockapi.io/items")
             .then(res => res.json())
             .then(data => setItems(data));
     }, []);
+    const onAddToCart = (obj) => {
+        setCartItems(prev => {
+            const isItemInCart = prev.some(item => item.id === obj.id);
 
-       return (
+            if (isItemInCart) {
+                // Удаляем элемент из корзины
+                return prev.filter(item => item.id !== obj.id);
+            } else {
+                // Добавляем элемент в корзину
+                return [...prev, obj];
+            }
+        });
+    };
+
+
+        return (
         <div className="wrapper clear">
-            {cartOpened && <Draver onCloseCart={() => setCartOpened(false)} />}
+            {cartOpened && <Draver items = {cartItems} onCloseCart={() => setCartOpened(false)} />}
             <Header onClickCart={() => setCartOpened(true)} />
             <div className="d-flex justify-between align-center p-40 ">
                 <img className="br-20" src={`${process.env.PUBLIC_URL}img/banner.png`}
@@ -32,8 +48,8 @@ function App() {
                 </div>
 
                 <div className="d-flex flex-wrap justify-start">
-                    {items.map((obj) => {
-                        return <Card key={obj.id} {...obj} />
+                    {items.map((item) => {
+                        return <Card key={item.id} {...item} onPlus={(obj)=>{onAddToCart(obj)}}/>
                     })}
                 </div>
             </div>

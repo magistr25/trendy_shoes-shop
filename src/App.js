@@ -58,7 +58,9 @@ function App() {
                 </div>
 
                 <div className="d-flex flex-wrap justify-start">
-                    {items.map((item) => {
+                    {items
+                        .filter((item) =>item.title.toLowerCase().includes(searchValue.toLowerCase()))
+                        .map((item) => {
                         return <Card key={item.id} {...item} onPlus={(obj)=>{onAddToCart(obj)}}/>
                     })}
                 </div>

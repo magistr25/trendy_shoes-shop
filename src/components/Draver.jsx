@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Draver = ({ onCloseCart, items=[]}) => {
+export const Draver = ({onRemoveItem, onCloseCart, items=[]}) => {
     return (
         <div className="overlay">
             <div className="drawer">
@@ -15,7 +15,7 @@ export const Draver = ({ onCloseCart, items=[]}) => {
                                 <p className="mb-5">{obj.title}</p>
                                 <b>{obj.price} руб.</b>
                             </div>
-                            <img className="removeBtn" src="/img/btn-remove.svg" alt="remove" />
+                            <img onClick={() => onRemoveItem(obj.id)} className="removeBtn" src="/img/btn-remove.svg" alt="remove" />
                         </div>
                     ))}
                 </div>

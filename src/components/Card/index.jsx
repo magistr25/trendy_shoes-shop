@@ -10,7 +10,7 @@ export const Card = ({id, title, imageUrl, price, onPlus, onAddToFavorite, onRem
     const onClickPlus = () => {
 
         onPlus({id, title, imageUrl, price})
-        setIsAdded(!isAdded);
+        setIsAdded(true);
     }
 
     const onClickFavorite = () => {

@@ -18,14 +18,24 @@ function App() {
             .then(res => setCartItems(res.data));
     }, []);
     const onAddToCart = (obj) => {
-        axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", obj)
+        const newItem = { ...obj, cartId: Date.now() };
+        axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", newItem)
 
-        setCartItems(prev => [...prev, obj]);
+
+        setCartItems(prev => [...prev, newItem]);
     };
-    const onRemoveItem = (id) => {
-        axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/cart/${id}`)
-       setCartItems(prev => prev.filter(item => item.id !== id));
-    }
+    const onRemoveItem = async (id, cartId) => {
+        try {
+            await axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/cart/${id}`);
+            const response = await axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart");
+            setCartItems(response.data);
+        } catch (error) {
+            console.error(`Ошибка при удалении товара с id ${id} из корзины:`, error);
+        }
+        setCartItems(prev => prev.filter(item => item.cartId !== cartId));
+
+    };
+
 
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value);

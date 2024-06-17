@@ -10,7 +10,7 @@ function App() {
     const [cartItems, setCartItems] = useState([]);
     const [cartOpened, setCartOpened] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-
+    const [favoriteItems, setFavoriteItems] = useState([]);
     useEffect(() => {
         axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/items")
             .then(res => setItems(res.data));
@@ -35,10 +35,27 @@ function App() {
         setCartItems(prev => prev.filter(item => item.cartId !== cartId));
 
     };
+    const onAddToFavorite = async (obj) => {
+        try {
+            const response = await axios.post('https://666c2f5a49dbc5d7145d048a.mockapi.io/favorites', obj);
+            setFavoriteItems(prev => [...prev, response.data]);
+        } catch (error) {
+            console.error('Ошибка при добавлении товара в избранное:', error);
+        }
+    };
 
+    const onRemoveFavorite = async (id) => {
+        try {
+            await axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/favorites/${id}`);
+            setFavoriteItems(prev => prev.filter(item => item.id !== id));
+        } catch (error) {
+            console.error(`Ошибка при удалении товара с id ${id} из избранного:`, error);
+        }
+    };
 
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value);
+
     }
 
     return (
@@ -68,7 +85,7 @@ function App() {
                     {items
                         .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
                         .map((item) => {
-                            return <Card key={item.id} {...item} onPlus={(obj) => {
+                            return <Card key={item.id} {...item} cartItems={cartItems} onAddToFavorite={onAddToFavorite} onRemoveFavorite={onRemoveFavorite} onPlus={(obj) => {
                                 onAddToCart(obj)
                             }}/>
                         })}

@@ -3,21 +3,25 @@ import styles from './Card.module.scss';
 import axios from "axios";
 
 
-export const Card = ({id, title, imageUrl, price, onPlus, onAddToCart}) => {
+export const Card = ({id, title, imageUrl, price, onPlus, onAddToFavorite, onRemoveFavorite}) => {
     const [isAdded, setIsAdded] = React.useState(false);
     const [isFavorite, setIsFavorite] = React.useState(false);
 
-
     const onClickPlus = () => {
-        const card = { id, title, imageUrl, price };
-        onPlus(card);
-    };
 
+        onPlus({id, title, imageUrl, price})
+        setIsAdded(!isAdded);
+    }
 
     const onClickFavorite = () => {
-
-       setIsFavorite(!isFavorite);
+        if (isFavorite) {
+            onRemoveFavorite(id);
+        } else {
+            onAddToFavorite({ id, title, imageUrl, price });
+        }
+        setIsFavorite(!isFavorite);
     }
+
 
 
     const imgPlus = isAdded ? `${process.env.PUBLIC_URL}img/btn-checked.svg` :`${process.env.PUBLIC_URL}img/btn-plus.svg`

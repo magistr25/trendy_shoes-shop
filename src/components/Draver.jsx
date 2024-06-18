@@ -29,7 +29,7 @@ export const Draver = ({onRemoveItem, onCloseCart, items=[]}) => {
                         <div className="items">
                             {items.map((obj) => (
 
-                                <div key={obj.cartId} className="cartItem d-flex align-center mb-20">
+                                <div key={obj.id} className="cartItem d-flex align-center mb-20">
                                     <div
                                         className="cartItemImg"
                                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}${obj.imageUrl})`}}

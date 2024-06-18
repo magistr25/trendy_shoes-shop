@@ -33,7 +33,8 @@ function App() {
 
     const onAddToCart = async (obj) => {
         try {
-            const response = await axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", obj);
+            const cartItemId = obj.id + '-' + new Date().getTime()
+            const response = await axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", {...obj, cartItemId});
             setCartItems(prev => [...prev, response.data]);
         } catch (error) {
             console.error('Ошибка при добавлении товара в корзину:', error);
@@ -74,17 +75,26 @@ function App() {
     const isItemAdded = (id) => cartItems.some(item => item.id === id);
     const isItemFavorite = (id) => favoriteItems.some(item => item.id === id);
 
+    const itogPrice = () => {
+        return cartItems.reduce((sum, item) => sum + item.price, 0);
+    }
+
+    const nalog = (itogPrice() * 0.05).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
+    const totalPrice = itogPrice().toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
+
     return (
-        <div>
+        <div className="d-flex justify-between align-center p-40">
             <div className="wrapper clear">
                 {cartOpened && (
                     <Draver
                         items={cartItems}
                         onRemoveItem={onRemoveItem}
                         onCloseCart={() => setCartOpened(false)}
+                        totalPrice={totalPrice}
+                        nalog={nalog}
                     />
                 )}
-                <Header onClickCart={() => setCartOpened(true)}/>
+                <Header onClickCart={() => setCartOpened(true)}  totalPrice={totalPrice} />
 
                 <Routes>
                     <Route

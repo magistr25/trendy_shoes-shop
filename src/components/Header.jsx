@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-export const Header = ({onClickCart, onClickHeart}) => {
-    return (
+export const Header = ({onClickCart, onClickHeart, totalPrice}) => {
+      return (
         <header className="d-flex justify-between align-center p-40">
             <Link to={"/"}>
                 <div className="d-flex align-center ">
@@ -17,7 +17,7 @@ export const Header = ({onClickCart, onClickHeart}) => {
             <ul className="d-flex">
                 <li className="mr-30  cu-p" onClick={onClickCart}>
                     <img src={`${process.env.PUBLIC_URL}img/cart.svg`} alt="cart logo" width={18} height={18}/>
-                    <span>1205 pyб. </span>
+                    <span>{totalPrice} pyб. </span>
                 </li>
                 <li className="mr-20  cu-p" onClick={onClickHeart}>
                     <Link to={"/favorites"}><img src={`${process.env.PUBLIC_URL}img/heart.svg`} alt="heart" width={18}

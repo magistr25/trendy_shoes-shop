@@ -38,6 +38,7 @@ header {
 }
 
 .content {
+  min-width: 150vh ;
   h1 {
     margin: 0;
   }
@@ -81,6 +82,7 @@ header {
   background: #ffffff;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
+  overflow: auto;
 
 
   .items {
@@ -234,4 +236,32 @@ header {
     }
   }
 }
+
+.favorites {
+  .blueButton {
+    position: relative;
+    width: 250px;
+    left: 35px;
+
+    &:hover {
+      transform: translateX(-5px);
+    }
+
+    &:active {
+      transform: translateX(0);
+    }
+
+
+    img {
+      position: absolute;
+      left: 30px;
+      top: 20px;
+      transition: transform 0.15s ease-in-out;
+      transform: rotate(180deg) translateX(3px);
+    }
+  }
+}
+
+
+
 

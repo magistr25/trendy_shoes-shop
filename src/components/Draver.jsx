@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const Draver = ({onRemoveItem, onCloseCart, items=[]}) => {
+export const Draver = ({onRemoveItem, onCloseCart, items=[], totalPrice, nalog}) => {
+
     return (
         <div className="overlay">
             <div className="drawer">
@@ -29,7 +30,7 @@ export const Draver = ({onRemoveItem, onCloseCart, items=[]}) => {
                         <div className="items">
                             {items.map((obj) => (
 
-                                <div key={obj.id} className="cartItem d-flex align-center mb-20">
+                                <div key={obj.cartItemId} className="cartItem d-flex align-center mb-20">
                                     <div
                                         className="cartItemImg"
                                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}${obj.imageUrl})`}}
@@ -50,19 +51,19 @@ export const Draver = ({onRemoveItem, onCloseCart, items=[]}) => {
                         <div className="cartTotalBlock">
                             <ul>
                                 <li className="d-flex">
-                                    <span>Итого:</span>
-                                    <div />
-                                    <b>21 498 руб.</b>
+                                    <span>Налог 5%:</span>
+                                    <div/>
+                                    <b>{nalog} руб.</b>
                                 </li>
                                 <li className="d-flex">
-                                    <span>Налог 5%:</span>
-                                    <div />
-                                    <b>1074 руб.</b>
+                                    <span>Итого:</span>
+                                    <div/>
+                                    <b>{totalPrice} руб.</b>
                                 </li>
                             </ul>
                             <button className="blueButton">
                                 Оформить заказ
-                                <img src={`${process.env.PUBLIC_URL}/img/arrow.svg`} alt="Arrow" />
+                                <img src={`${process.env.PUBLIC_URL}/img/arrow.svg`} alt="Arrow"/>
                             </button>
                         </div>
                     </div>

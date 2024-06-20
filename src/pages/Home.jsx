@@ -20,13 +20,13 @@ export const Home = ({ items, searchValue, onChangeSearchInput, onAddToFavorite,
             <div className="d-flex flex-wrap">
                 {filteredItems.map((item) => (
                     <Card
-                        key={item.id}
+                        key={item.itemId}
                         {...item}
                         onPlus={onAddToCart}
                         onAddToFavorite={onAddToFavorite}
                         onRemoveFavorite={onRemoveFavorite}
-                        isAdded={isItemAdded(item.id)}
-                        isFavorite={isItemFavorite(item.id)}
+                        isAdded={isItemAdded(item.itemId)}
+                        isFavorite={isItemFavorite(item.itemId)}
                     />
                 ))}
             </div>

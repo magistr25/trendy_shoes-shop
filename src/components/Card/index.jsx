@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Card.module.scss';
 
-export const Card = ({ id, title, imageUrl, price, onPlus, onAddToFavorite, onRemoveFavorite, isAdded, isFavorite }) => {
+export const Card = ({ id, itemId, title, imageUrl, price, onPlus, onAddToFavorite, onRemoveFavorite, isAdded, isFavorite }) => {
     const [added, setAdded] = useState(isAdded);
     const [favorite, setFavorite] = useState(isFavorite);
 
@@ -15,22 +15,23 @@ export const Card = ({ id, title, imageUrl, price, onPlus, onAddToFavorite, onRe
 
     const onClickPlus = async () => {
         if (!added) {
-            await onPlus({ id, title, imageUrl, price });
+            await onPlus({ itemId, title, imageUrl, price });
             setAdded(true);
         }
     };
 
     const onClickFavorite = async () => {
         if (favorite) {
-            await onRemoveFavorite(id);
+            await onRemoveFavorite({itemId});
             setFavorite(false);
         } else {
-            await onAddToFavorite({ id, title, imageUrl, price });
+            await onAddToFavorite({id, itemId, title, imageUrl, price });
             setFavorite(true);
+
         }
     };
 
-    const imgPlus = added ? `${process.env.PUBLIC_URL}/img/btn-checked.svg` : `${process.env.PUBLIC_URL}/img/btn-plus.svg`;
+    const imgPlus = isAdded ? `${process.env.PUBLIC_URL}/img/btn-checked.svg` : `${process.env.PUBLIC_URL}/img/btn-plus.svg`;
     const favoriteHeart = favorite ? `${process.env.PUBLIC_URL}/img/liked.svg` : `${process.env.PUBLIC_URL}/img/unliked.svg`;
 
     return (

@@ -33,8 +33,8 @@ function App() {
 
     const onAddToCart = async (obj) => {
         try {
-            const cartItemId = obj.id + '-' + new Date().getTime()
-            const response = await axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", {...obj, cartItemId});
+            const itemId = obj.itemId
+            const response = await axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", {...obj, itemId});
             setCartItems(prev => [...prev, response.data]);
         } catch (error) {
             console.error('Ошибка при добавлении товара в корзину:', error);
@@ -52,6 +52,7 @@ function App() {
 
     const onAddToFavorite = async (obj) => {
         try {
+
             const response = await axios.post('https://667005080900b5f872490e2e.mockapi.io/favorites', obj);
             setFavoriteItems(prev => [...prev, response.data]);
         } catch (error) {
@@ -60,11 +61,23 @@ function App() {
     };
 
     const onRemoveFavorite = async (id) => {
+
+        let newId
+        const idTest = (id)=>{
+            for (const item of favoriteItems) {
+                if(item.itemId === id.itemId){
+                    newId = item.id
+                }
+            }
+        }
+        idTest(id)
         try {
-            await axios.delete(`https://667005080900b5f872490e2e.mockapi.io/favorites/${id}`);
-            setFavoriteItems(prev => prev.filter(item => item.id !== id));
+            console.log(id)
+
+            await axios.delete(`https://667005080900b5f872490e2e.mockapi.io/favorites/${newId}`);
+            setFavoriteItems(prev => prev.filter(item => item.id !== newId));
         } catch (error) {
-            console.error(`Ошибка при удалении товара с id ${id} из избранного:`, error);
+            console.error(`Ошибка при удалении товара с itemId ${id} из избранного:`, error);
         }
     };
 
@@ -72,8 +85,8 @@ function App() {
         setSearchValue(event.target.value);
     };
 
-    const isItemAdded = (id) => cartItems.some(item => item.id === id);
-    const isItemFavorite = (id) => favoriteItems.some(item => item.id === id);
+    const isItemAdded = (itemId) => cartItems.some(item => item.itemId === itemId);
+    const isItemFavorite = (itemId) => favoriteItems.some(item => item.itemId === itemId);
 
     const itogPrice = () => {
         return cartItems.reduce((sum, item) => sum + item.price, 0);

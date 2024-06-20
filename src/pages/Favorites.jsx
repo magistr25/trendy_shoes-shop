@@ -9,7 +9,9 @@ export const Favorites = ({
                               onAddToCart,
                               isItemFavorite,
                               isItemAdded
+
                           }) => {
+
     return (
         <div className="content p-40">
             <div className="d-flex align-center justify-between p-40">
@@ -24,7 +26,7 @@ export const Favorites = ({
                             onRemoveFavorite={onRemoveFavorite}
                             onAddToFavorite={onAddToFavorite}
                             onPlus={onAddToCart}
-                            isFavorite={isItemFavorite(favoriteItem.id)}
+                            isFavorite={isItemFavorite(favoriteItem.itemId)}
                             isAdded={isItemAdded(favoriteItem.id)}
                         />))
                     : (<div className="favorites"><h2 className="d-flex align-center justify-between p-40">У вас ещё нет товаров в

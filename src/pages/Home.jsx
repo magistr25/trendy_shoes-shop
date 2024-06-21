@@ -3,8 +3,29 @@ import { Card } from '../components/Card';
 import "../index.scss"
 
 
-export const Home = ({ items, searchValue, onChangeSearchInput, onAddToFavorite, onRemoveFavorite, onAddToCart, isItemAdded, isItemFavorite }) => {
-    const filteredItems = items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+export const Home = ({ items, cartItems, searchValue, onChangeSearchInput, onAddToFavorite, onRemoveFavorite, onAddToCart, onRemoveToCart, isItemAdded, isItemFavorite, isLoading}) => {
+    const renderItems = () => {
+        const filteredItems = isLoading
+            ? [...Array(10)].map((_, index) => ({ id: index }))
+            : items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+
+        return filteredItems.map((item, index) => (
+            <Card
+                key={isLoading ? index : item.itemId}
+                {...item}
+                onPlus={onAddToCart}
+                cartItems={cartItems}
+                onRemoveToCart={onRemoveToCart}
+                onAddToFavorite={onAddToFavorite}
+                onRemoveFavorite={onRemoveFavorite}
+                isAdded={isItemAdded(item.itemId)}
+                isFavorite={isItemFavorite(item.itemId)}
+                isLoading={isLoading}
+            />
+        ));
+    }
+
+
 
     return (
         <div className= "content p-40 ">
@@ -20,17 +41,7 @@ export const Home = ({ items, searchValue, onChangeSearchInput, onAddToFavorite,
                 </div>
             </div>
             <div className="d-flex flex-wrap space-between">
-                {filteredItems.map((item) => (
-                    <Card
-                        key={item.itemId}
-                        {...item}
-                        onPlus={onAddToCart}
-                        onAddToFavorite={onAddToFavorite}
-                        onRemoveFavorite={onRemoveFavorite}
-                        isAdded={isItemAdded(item.itemId)}
-                        isFavorite={isItemFavorite(item.itemId)}
-                    />
-                ))}
+                {renderItems()}
             </div>
         </div>
     );

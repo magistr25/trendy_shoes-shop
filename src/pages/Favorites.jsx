@@ -1,14 +1,18 @@
 import React from "react";
 import {Card} from "../components/Card";
 import {Link} from "react-router-dom";
+import "../index.scss"
 
 export const Favorites = ({
                               favoriteItems,
                               onRemoveFavorite,
                               onAddToFavorite,
                               onAddToCart,
+                              onRemoveToCart,
                               isItemFavorite,
-                              isItemAdded
+                              isItemAdded,
+                              onChangeSearchInput,
+                              searchValue
 
                           }) => {
 
@@ -16,6 +20,10 @@ export const Favorites = ({
         <div className="content p-40">
             <div className="d-flex align-center justify-between p-40">
                 <h1>Мои закладки</h1>
+                <div className="search-block">
+                    <img src={`${process.env.PUBLIC_URL}/img/search.svg`} alt="Search"/>
+                    <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..."/>
+                </div>
             </div>
             <div className="d-flex flex-wrap justify-start">
                 {favoriteItems.length > 0
@@ -26,6 +34,8 @@ export const Favorites = ({
                             onRemoveFavorite={onRemoveFavorite}
                             onAddToFavorite={onAddToFavorite}
                             onPlus={onAddToCart}
+
+                            onRemoveToCart={onRemoveToCart}
                             isFavorite={isItemFavorite(favoriteItem.itemId)}
                             isAdded={isItemAdded(favoriteItem.id)}
                         />))

@@ -12,10 +12,13 @@ function App() {
     const [cartOpened, setCartOpened] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [favoriteItems, setFavoriteItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
+
             try {
+                setIsLoading(true);
                 const [itemsResponse, cartResponse, favoritesResponse] = await Promise.all([
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/items"),
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart"),
@@ -26,6 +29,8 @@ function App() {
                 setFavoriteItems(favoritesResponse.data);
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchData();
@@ -36,12 +41,14 @@ function App() {
             const itemId = obj.itemId
             const response = await axios.post("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart", {...obj, itemId});
             setCartItems(prev => [...prev, response.data]);
+
         } catch (error) {
             console.error('Ошибка при добавлении товара в корзину:', error);
         }
     };
 
     const onRemoveItem = async (id) => {
+
         try {
             await axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/cart/${id}`);
             setCartItems(prev => prev.filter(item => item.id !== id));
@@ -63,9 +70,9 @@ function App() {
     const onRemoveFavorite = async (id) => {
         // далее до блока try/catch код, который связан с особенностями работы mockAPI (т.к. mockAPI переприсваивает id элементам)
         let newId
-        const idTest = (id)=>{
+        const idTest = (obj)=>{
             for (const item of favoriteItems) {
-                if(item.itemId === id.itemId){
+                if(item.itemId === obj.itemId){
                     newId = item.id
                 }
             }
@@ -120,9 +127,11 @@ function App() {
                             onAddToFavorite={onAddToFavorite}
                             onRemoveFavorite={onRemoveFavorite}
                             onAddToCart={onAddToCart}
+                            onRemoveToCart={onRemoveItem}
                             setSearchValue={setSearchValue}
                             isItemAdded={isItemAdded}
                             isItemFavorite={isItemFavorite}
+                            isLoading={isLoading}
                         />}
                     />
                     <Route
@@ -135,6 +144,8 @@ function App() {
                             onAddToCart={onAddToCart}
                             isItemAdded={isItemAdded}
                             isItemFavorite={isItemFavorite}
+                            onChangeSearchInput={onChangeSearchInput}
+                            setSearchValue={setSearchValue}
                         />}
                     />
                 </Routes>

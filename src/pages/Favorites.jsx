@@ -34,10 +34,8 @@ export const Favorites = ({
                             onRemoveFavorite={onRemoveFavorite}
                             onAddToFavorite={onAddToFavorite}
                             onPlus={onAddToCart}
-
-                            onRemoveToCart={onRemoveToCart}
                             isFavorite={isItemFavorite(favoriteItem.itemId)}
-                            isAdded={isItemAdded(favoriteItem.id)}
+                            isAdded={isItemAdded(favoriteItem.itemId)}
                         />))
                     : (<div className="favorites"><h2 className="d-flex align-center justify-between p-40">У вас ещё нет товаров в
                         закладках... 😢</h2>

@@ -61,7 +61,7 @@ function App() {
     };
 
     const onRemoveFavorite = async (id) => {
-
+        // далее до блока try/catch код, который связан с особенностями работы mockAPI (т.к. mockAPI переприсваивает id элементам)
         let newId
         const idTest = (id)=>{
             for (const item of favoriteItems) {
@@ -71,8 +71,8 @@ function App() {
             }
         }
         idTest(id)
+
         try {
-            console.log(id)
 
             await axios.delete(`https://667005080900b5f872490e2e.mockapi.io/favorites/${newId}`);
             setFavoriteItems(prev => prev.filter(item => item.id !== newId));

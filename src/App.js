@@ -13,7 +13,8 @@ function App() {
     const [searchValue, setSearchValue] = useState('');
     const [favoriteItems, setFavoriteItems] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [orderPlaced, setOrderPlaced] = useState(false); // Состояние для отображения сообщения "Ваш заказ оформлен!"
+    const [numberOfOrder, setNumberOfOrder] = useState('');
     useEffect(() => {
         const fetchData = async () => {
 
@@ -22,7 +23,7 @@ function App() {
                 const [itemsResponse, cartResponse, favoritesResponse] = await Promise.all([
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/items"),
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart"),
-                    axios.get("https://667005080900b5f872490e2e.mockapi.io/favorites")
+                    axios.get("https://6676e5ff145714a1bd731f73.mockapi.io/favorites")
                 ]);
                 setItems(itemsResponse.data);
                 setCartItems(cartResponse.data);
@@ -60,7 +61,7 @@ function App() {
     const onAddToFavorite = async (obj) => {
         try {
 
-            const response = await axios.post('https://667005080900b5f872490e2e.mockapi.io/favorites', obj);
+            const response = await axios.post('https://6676e5ff145714a1bd731f73.mockapi.io/favorites', obj);
             setFavoriteItems(prev => [...prev, response.data]);
         } catch (error) {
             console.error('Ошибка при добавлении товара в избранное:', error);
@@ -81,7 +82,7 @@ function App() {
 
         try {
 
-            await axios.delete(`https://667005080900b5f872490e2e.mockapi.io/favorites/${newId}`);
+            await axios.delete(`https://6676e5ff145714a1bd731f73.mockapi.io/favorites/${newId}`);
             setFavoriteItems(prev => prev.filter(item => item.id !== newId));
         } catch (error) {
             console.error(`Ошибка при удалении товара с itemId ${id} из избранного:`, error);
@@ -102,6 +103,28 @@ function App() {
     const nalog = (itogPrice() * 0.05).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
     const totalPrice = itogPrice().toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
 
+    const onCloseCart = () => {
+        setCartOpened(false);
+        setOrderPlaced(false);
+        setNumberOfOrder('')
+    }
+    const onOrder = async (items) => {
+        try {
+            const response = await axios.post('https://6676e5ff145714a1bd731f73.mockapi.io/orders', items);
+            if (response.data && response.data.createdAt) {
+                const createdAt = response.data.createdAt;
+                setOrderPlaced(true); // Устанавливаем состояние "заказ оформлен"
+                setCartItems([]); // Очищаем корзину
+                setNumberOfOrder(createdAt.slice(-4)); // Устанавливаем номер заказа (последние 4 символа)
+            } else {
+                console.error('Ошибка: Не удалось получить дату создания заказа.');
+            }
+        } catch (error) {
+            console.error('Ошибка при формировании заказа:', error);
+        }
+    }
+
+
     return (
         <div className="d-flex justify-between align-center p-40">
             <div className="wrapper clear">
@@ -109,9 +132,13 @@ function App() {
                     <Draver
                         items={cartItems}
                         onRemoveItem={onRemoveItem}
-                        onCloseCart={() => setCartOpened(false)}
+                        onCloseCart={onCloseCart}
                         totalPrice={totalPrice}
                         nalog={nalog}
+                        onOrder={onOrder} // Передаем метод onOrder
+                        orderPlaced={orderPlaced} // Передаем состояние orderPlaced
+                        cartItems={cartItems}
+                        numberOfOrder={numberOfOrder}
                     />
                 )}
                 <Header onClickCart={() => setCartOpened(true)}  totalPrice={totalPrice} />
@@ -122,6 +149,7 @@ function App() {
                         element={<Home
                             items={items}
                             cartItems={cartItems}
+                            setCartItems={setCartItems}
                             searchValue={searchValue}
                             onChangeSearchInput={onChangeSearchInput}
                             onAddToFavorite={onAddToFavorite}

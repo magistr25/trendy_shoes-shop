@@ -3,7 +3,7 @@ import { Card } from '../components/Card';
 import "../index.scss"
 
 
-export const Home = ({ items, cartItems, searchValue, onChangeSearchInput, onAddToFavorite, onRemoveFavorite, onAddToCart, onRemoveToCart, isItemAdded, isItemFavorite, isLoading}) => {
+export const Home = ({ items, cartItems, setCartItems, searchValue, onChangeSearchInput, onAddToFavorite, onRemoveFavorite, onAddToCart, onRemoveToCart, isItemAdded, isItemFavorite, isLoading}) => {
     const renderItems = () => {
         const filteredItems = isLoading
             ? [...Array(10)].map((_, index) => ({ id: index }))
@@ -15,6 +15,7 @@ export const Home = ({ items, cartItems, searchValue, onChangeSearchInput, onAdd
                 {...item}
                 onPlus={onAddToCart}
                 cartItems={cartItems}
+                setCartItems={setCartItems}
                 onRemoveToCart={onRemoveToCart}
                 onAddToFavorite={onAddToFavorite}
                 onRemoveFavorite={onRemoveFavorite}

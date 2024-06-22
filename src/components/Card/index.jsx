@@ -13,7 +13,9 @@ export const Card = ({
                          onRemoveFavorite,
                          isAdded,
                          isFavorite,
-                         isLoading
+                         isLoading,
+                         cartItems,
+                         setCartItems
                      }) => {
     const [added, setAdded] = useState(isAdded);
     const [favorite, setFavorite] = useState(isFavorite);
@@ -28,10 +30,11 @@ export const Card = ({
 
     const onClickPlus = async () => {
         if (!added) {
-            await onPlus({itemId, title, imageUrl, price});
+            await onPlus({ itemId, title, imageUrl, price });
             setAdded(true);
         }
     };
+
 
     const onClickFavorite = async () => {
         if (favorite) {

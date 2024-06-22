@@ -115,6 +115,9 @@ function App() {
                 const createdAt = response.data.createdAt;
                 setOrderPlaced(true); // Устанавливаем состояние "заказ оформлен"
                 setCartItems([]); // Очищаем корзину
+                for (const item of items) {
+                    await axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/cart/${item.id}`)
+                }
                 setNumberOfOrder(createdAt.slice(-4)); // Устанавливаем номер заказа (последние 4 символа)
             } else {
                 console.error('Ошибка: Не удалось получить дату создания заказа.');

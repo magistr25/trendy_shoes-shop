@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header";
-import { Draver } from "./components/Draver";
+import React, {useEffect, useState} from 'react';
+import {Route, Routes} from "react-router-dom";
+import {Header} from "./components/Header";
+import {Draver} from "./components/Draver";
 import axios from "axios";
-import { Home } from "./pages/Home";
-import { Favorites } from "./pages/Favorites";
+import {Home} from "./pages/Home";
+import {Favorites} from "./pages/Favorites";
+import {Orders} from "./pages/Orders";
 
 function App() {
     const [items, setItems] = useState([]);
@@ -71,9 +72,9 @@ function App() {
     const onRemoveFavorite = async (id) => {
         // далее до блока try/catch код, который связан с особенностями работы mockAPI (т.к. mockAPI переприсваивает id элементам)
         let newId
-        const idTest = (obj)=>{
+        const idTest = (obj) => {
             for (const item of favoriteItems) {
-                if(item.itemId === obj.itemId){
+                if (item.itemId === obj.itemId) {
                     newId = item.id
                 }
             }
@@ -100,8 +101,10 @@ function App() {
         return cartItems.reduce((sum, item) => sum + item.price, 0);
     }
 
-    const nalog = (itogPrice() * 0.05).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
-    const totalPrice = itogPrice().toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');;
+    const nalog = (itogPrice() * 0.05).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    ;
+    const totalPrice = itogPrice().toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    ;
 
     const onCloseCart = () => {
         setCartOpened(false);
@@ -111,14 +114,14 @@ function App() {
     const onOrder = async (items) => {
         try {
             const response = await axios.post('https://6676e5ff145714a1bd731f73.mockapi.io/orders', items);
-            if (response.data && response.data.createdAt) {
-                const createdAt = response.data.createdAt;
+            if (response.data && response.data.id) {
+                const id = response.data.id;
                 setOrderPlaced(true); // Устанавливаем состояние "заказ оформлен"
                 setCartItems([]); // Очищаем корзину
                 for (const item of items) {
                     await axios.delete(`https://666c2f5a49dbc5d7145d048a.mockapi.io/cart/${item.id}`)
                 }
-                setNumberOfOrder(createdAt.slice(-4)); // Устанавливаем номер заказа (последние 4 символа)
+                setNumberOfOrder(id); // Устанавливаем номер заказа (последние 4 символа)
             } else {
                 console.error('Ошибка: Не удалось получить дату создания заказа.');
             }
@@ -144,7 +147,7 @@ function App() {
                         numberOfOrder={numberOfOrder}
                     />
                 )}
-                <Header onClickCart={() => setCartOpened(true)}  totalPrice={totalPrice} />
+                <Header onClickCart={() => setCartOpened(true)} totalPrice={totalPrice}/>
 
                 <Routes>
                     <Route
@@ -178,6 +181,10 @@ function App() {
                             onChangeSearchInput={onChangeSearchInput}
                             setSearchValue={setSearchValue}
                         />}
+                    />
+                    <Route
+                        path='/orders'
+                        element={<Orders/>}
                     />
                 </Routes>
             </div>

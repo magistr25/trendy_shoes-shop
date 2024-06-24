@@ -13,9 +13,7 @@ export const Card = ({
                          onRemoveFavorite,
                          isAdded,
                          isFavorite,
-                         isLoading,
-                         cartItems,
-                         setCartItems
+                         isLoading
                      }) => {
     const [added, setAdded] = useState(isAdded);
     const [favorite, setFavorite] = useState(isFavorite);
@@ -67,9 +65,9 @@ export const Card = ({
                     <rect x="124" y="230" rx="10" ry="10" width="40" height="32"/>
                 </ContentLoader>)
                 : (<>
-                        <div className="favorite" onClick={onClickFavorite}>
+                    {onAddToFavorite && <div className="favorite" onClick={onClickFavorite}>
                             <img src={favoriteHeart} alt="liked"/>
-                        </div>
+                        </div>}
                         <img width={133} height={122} src={imageUrl} alt="shoes"/>
                         <h5>{title}</h5>
                         <div className="d-flex justify-between align-center">
@@ -77,12 +75,12 @@ export const Card = ({
                                 <span>Цена: </span>
                                 <b>{price} руб.</b>
                             </div>
-                            <img
+                            {onPlus && <img
                                 className={styles.plus}
                                 onClick={onClickPlus}
                                 src={imgPlus}
                                 alt="+"
-                            />
+                            />}
                         </div>
                     </>
                 )}

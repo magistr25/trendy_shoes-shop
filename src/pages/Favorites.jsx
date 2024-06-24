@@ -8,7 +8,6 @@ export const Favorites = ({
                               onRemoveFavorite,
                               onAddToFavorite,
                               onAddToCart,
-                              onRemoveToCart,
                               isItemFavorite,
                               isItemAdded,
                               onChangeSearchInput,

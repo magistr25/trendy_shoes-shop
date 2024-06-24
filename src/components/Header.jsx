@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 export const Header = ({onClickCart, onClickHeart, totalPrice}) => {
-      return (
+    return (
         <header className="d-flex justify-between align-center p-40">
             <Link to={"/"}>
                 <div className="d-flex align-center ">
@@ -24,9 +24,11 @@ export const Header = ({onClickCart, onClickHeart, totalPrice}) => {
                                                  height={18}/></Link>
 
                 </li>
-                <li>
-                    <img src={`${process.env.PUBLIC_URL}img/user.svg`} alt="user logo" width={18} height={18}/>
-                </li>
+                <Link to={"/orders"}>
+                    <li>
+                        <img src={`${process.env.PUBLIC_URL}img/user.svg`} alt="user logo" width={18} height={18}/>
+                    </li>
+                </Link>
             </ul>
         </header>
     )

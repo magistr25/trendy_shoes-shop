@@ -4,6 +4,7 @@ import styles from './Card.module.scss';
 
 export const Card = ({
                          id,
+                         sizes,
                          itemId,
                          title,
                          imageUrl,
@@ -39,7 +40,7 @@ export const Card = ({
             await onRemoveFavorite({itemId});
             setFavorite(false);
         } else {
-            await onAddToFavorite({id, itemId, title, imageUrl, price});
+            await onAddToFavorite({id, itemId, sizes, title, imageUrl, price});
             setFavorite(true);
 
         }
@@ -65,10 +66,18 @@ export const Card = ({
                     <rect x="124" y="230" rx="10" ry="10" width="40" height="32"/>
                 </ContentLoader>)
                 : (<>
-                    {onAddToFavorite && <div className="favorite" onClick={onClickFavorite}>
+                        {onAddToFavorite && <div className="favorite" onClick={onClickFavorite}>
                             <img src={favoriteHeart} alt="liked"/>
                         </div>}
                         <img width={133} height={122} src={imageUrl} alt="shoes"/>
+                        {onPlus && sizes.map(size => (
+                            <div
+                                className={`${styles.sizes} ${!size.available ? styles.disabled : ''}`}
+                                key={size.size}
+                            >
+                                {size.size}
+                            </div>
+                        ))}
                         <h5>{title}</h5>
                         <div className="d-flex justify-between align-center">
                             <div className="d-flex flex-column">

@@ -30,6 +30,7 @@ export const Favorites = ({
                         <Card
                             key={favoriteItem.id}
                             {...favoriteItem}
+                            sizes={favoriteItem.sizes}
                             onRemoveFavorite={onRemoveFavorite}
                             onAddToFavorite={onAddToFavorite}
                             onPlus={onAddToCart}

@@ -21,7 +21,7 @@ export const Orders = ({ onChangeSearchInput, searchValue }) => {
                         .filter(key => !isNaN(key)) // Фильтруем только числовые ключи
                         .map(key => order[key]); // Преобразуем ключи в массив объектов
 
-                    // Возвращаем объект с нужной структурой
+                    // Возвращаем объект
                     return {
                         id: order.id,
                         items: items
@@ -46,6 +46,8 @@ export const Orders = ({ onChangeSearchInput, searchValue }) => {
                 {orders.map(order => (
                     <div key={order.id} className="mb-20">
                         <h2 className="mb-20">Заказ №{order.id}</h2>
+                        <h3 style={{color: 'rgb(23, 132, 173)'}}>В обработке</h3>
+
                         <div className="d-flex flex-wrap">
                             {order.items.map(item => (
                                 <Card

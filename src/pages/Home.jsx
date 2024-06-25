@@ -13,6 +13,7 @@ export const Home = ({ items, cartItems, setCartItems, searchValue, onChangeSear
             <Card
                 key={isLoading ? index : item.itemId}
                 {...item}
+                sizes={item.sizes}
                 onPlus={onAddToCart}
                 cartItems={cartItems}
                 setCartItems={setCartItems}

@@ -16,6 +16,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [orderPlaced, setOrderPlaced] = useState(false); // Состояние для отображения сообщения "Ваш заказ оформлен!"
     const [numberOfOrder, setNumberOfOrder] = useState('');
+    const [count, setCount] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
 
@@ -134,6 +135,7 @@ function App() {
     }
 
 
+
     return (
         <div className="d-flex justify-between align-center p-40">
             <div className="wrapper clear">
@@ -150,7 +152,7 @@ function App() {
                         numberOfOrder={numberOfOrder}
                     />
                 )}
-                <Header onClickCart={() => setCartOpened(true)} totalPrice={totalPrice}/>
+                <Header onClickCart={() => setCartOpened(true)} totalPrice={totalPrice} count={count} setCount={setCount} cartItems={cartItems}/>
 
                 <Routes>
                     <Route

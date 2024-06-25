@@ -13,34 +13,47 @@ export const Card = ({
                          onPlus,
                          onAddToFavorite,
                          onRemoveFavorite,
-                         isAdded,
                          isFavorite,
                          isLoading,
 
                      }) => {
-    const [added, setAdded] = useState(isAdded);
+
+    const [added, setAdded] = useState(false);
     const [favorite, setFavorite] = useState(isFavorite);
     const [activeIndex, setActiveIndex] = useState(null);
      const [selectedSize, setSelectedSize] = useState(null);
 
     useEffect(() => {
-        setAdded(isAdded);
-    }, [isAdded]);
+        setAdded(false);
+    }, []);
 
     useEffect(() => {
         setFavorite(isFavorite);
     }, [isFavorite]);
 
+
     const onClickPlus = async () => {
-        if ( selectedSize) {
-            await onPlus({ itemId, title, imageUrl, price, size: selectedSize.size });
-            setAdded(true);
-        }
+        try {
+            if (selectedSize) {
+                await onPlus({ itemId, title, imageUrl, price, size: selectedSize.size });
+                setAdded(true);
+                setTimeout(() => {
+                    alert("Товар добавлен в корзину");
+                    setAdded(false);
+                    setActiveIndex(null)
 
 
-        if (!selectedSize) {
-            alert("Пожалуйста, укажите размер");
+                }, 100);
+
+            } else {
+                alert("Пожалуйста, укажите размер");
+            }
+
+        } catch (error) {
+            console.error('Ошибка при добавлении товара в корзину:', error);
+            alert("Произошла ошибка при добавлении товара");
         }
+
     };
 
 
@@ -58,7 +71,7 @@ export const Card = ({
         setActiveIndex(index);
         setSelectedSize(sizes[index]);
     };
-    const imgPlus = isAdded ? `${process.env.PUBLIC_URL}/img/btn-checked.svg` : `${process.env.PUBLIC_URL}/img/btn-plus.svg`;
+    const imgPlus = added ? `${process.env.PUBLIC_URL}/img/btn-checked.svg` : `${process.env.PUBLIC_URL}/img/btn-plus.svg`;
     const favoriteHeart = favorite ? `${process.env.PUBLIC_URL}/img/liked.svg` : `${process.env.PUBLIC_URL}/img/unliked.svg`;
 
 
@@ -85,14 +98,15 @@ export const Card = ({
                         <img width={133} height={122} src={imageUrl} alt="shoes"/>
                         {onPlus && sizes.map((size, index) => (
                             <div
-                                className={`${styles.sizes} ${!size.available ? styles.disabled : ''} ${index === activeIndex ? styles.active : ''}`}
                                 key={size.size}
+                                className={`${styles.sizes} ${!size.available ? styles.disabled : ''} ${index === activeIndex ? styles.active : ''}`}
                                 onClick={() => handleClick(index)}
                                 size={size.size}
                             >
                                 {size.size}
                             </div>
                         ))}
+
                         <h5>{title}</h5>
                         {size && <div>Размер: {size}</div>}
                         <div className="d-flex justify-between align-center">

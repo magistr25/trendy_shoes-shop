@@ -4,6 +4,13 @@ import "../index.scss"
 
 
 export const Home = ({ items, cartItems, setCartItems, searchValue, onChangeSearchInput, onAddToFavorite, onRemoveFavorite, onAddToCart, onRemoveToCart, isItemAdded, isItemFavorite, isLoading}) => {
+    const sneakersRef = React.useRef(null);
+
+    const scrollToRef = () => {
+        if (sneakersRef.current) {
+            sneakersRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     const renderItems = () => {
         const filteredItems = isLoading
             ? [...Array(10)].map((_, index) => ({ id: index }))
@@ -31,12 +38,13 @@ export const Home = ({ items, cartItems, setCartItems, searchValue, onChangeSear
 
     return (
         <div className= "content p-40 ">
-            <div className="d-flex justify-between align-center ">
+            <div className="d-flex justify-between align-center banner">
                 <img className="br-20" src={`${process.env.PUBLIC_URL}img/banner.png`}
                      alt="" width={1000} height={500}/>
+                <button onClick={() => scrollToRef()}/>
             </div>
             <div className="d-flex  justify-between align-center p-40">
-                <h1 className="ml-20"> {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}</h1>
+                <h1 className="ml-20" ref={sneakersRef} id="all-sneakers"> {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}</h1>
                 <div className="search-block">
                     <img src={`${process.env.PUBLIC_URL}/img/search.svg`} alt="Search"/>
                     <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..."/>

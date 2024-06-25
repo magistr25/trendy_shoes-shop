@@ -265,6 +265,32 @@ header {
   }
 }
 
+.banner {
+  position: relative; /* Устанавливаем родителю position: relative для корректного позиционирования вложенных элементов */
+
+
+
+  button {
+    position: absolute; /* Абсолютное позиционирование кнопки относительно родителя .banner */
+    width: 262px;
+    height: 55px;
+    right: 390px; /* Расстояние от правого края */
+    top: 325px; /* Расположение на середине по вертикали */
+    transform: translateY(-50%); /* Центрирование по вертикали */
+    background: none; /* Убираем фон у кнопки */
+    border: none; /* Убираем границу у кнопки */
+    cursor: pointer; /* Курсор в виде руки */
+    &:hover {
+      opacity: 1; /* Прозрачность 1 при наведении */
+      border: 8px solid white;
+      border-radius: 50px;
+    }
+  }
+
+}
+
+
+
 
 
 

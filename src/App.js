@@ -24,11 +24,13 @@ function App() {
                 const [itemsResponse, cartResponse, favoritesResponse] = await Promise.all([
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/items"),
                     axios.get("https://666c2f5a49dbc5d7145d048a.mockapi.io/cart"),
-                    axios.get("https://6676e5ff145714a1bd731f73.mockapi.io/favorites")
+                    axios.get("https://6676e5ff145714a1bd731f73.mockapi.io/favorites"),
+
                 ]);
                 setItems(itemsResponse.data);
                 setCartItems(cartResponse.data);
                 setFavoriteItems(favoritesResponse.data);
+
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
             } finally {

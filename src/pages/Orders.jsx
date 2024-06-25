@@ -5,7 +5,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import "../index.scss"
 
-export const Orders = ({ onChangeSearchInput, searchValue }) => {
+export const Orders = () => {
     const [orders, setOrders] = React.useState([]);
 
     React.useEffect(() => {
@@ -54,6 +54,7 @@ export const Orders = ({ onChangeSearchInput, searchValue }) => {
                                     key={item.id}
                                     title={item.title}
                                     price={item.price}
+                                    size={item.size}
                                     imageUrl={item.imageUrl}
                                 />
                             ))}

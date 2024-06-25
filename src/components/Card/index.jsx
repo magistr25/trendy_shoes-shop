@@ -5,6 +5,7 @@ import styles from './Card.module.scss';
 export const Card = ({
                          id,
                          sizes,
+                         size,
                          itemId,
                          title,
                          imageUrl,
@@ -14,10 +15,13 @@ export const Card = ({
                          onRemoveFavorite,
                          isAdded,
                          isFavorite,
-                         isLoading
+                         isLoading,
+
                      }) => {
     const [added, setAdded] = useState(isAdded);
     const [favorite, setFavorite] = useState(isFavorite);
+    const [activeIndex, setActiveIndex] = useState(null);
+     const [selectedSize, setSelectedSize] = useState(null);
 
     useEffect(() => {
         setAdded(isAdded);
@@ -28,9 +32,14 @@ export const Card = ({
     }, [isFavorite]);
 
     const onClickPlus = async () => {
-        if (!added) {
-            await onPlus({ itemId, title, imageUrl, price });
+        if ( selectedSize) {
+            await onPlus({ itemId, title, imageUrl, price, size: selectedSize.size });
             setAdded(true);
+        }
+
+
+        if (!selectedSize) {
+            alert("Пожалуйста, укажите размер");
         }
     };
 
@@ -40,14 +49,18 @@ export const Card = ({
             await onRemoveFavorite({itemId});
             setFavorite(false);
         } else {
-            await onAddToFavorite({id, itemId, sizes, title, imageUrl, price});
+            await onAddToFavorite({id, itemId, title, imageUrl, price, sizes});
             setFavorite(true);
 
         }
     };
-
+    const handleClick = (index) => {
+        setActiveIndex(index);
+        setSelectedSize(sizes[index]);
+    };
     const imgPlus = isAdded ? `${process.env.PUBLIC_URL}/img/btn-checked.svg` : `${process.env.PUBLIC_URL}/img/btn-plus.svg`;
     const favoriteHeart = favorite ? `${process.env.PUBLIC_URL}/img/liked.svg` : `${process.env.PUBLIC_URL}/img/unliked.svg`;
+
 
     return (
         <div className={styles.card}>
@@ -70,15 +83,18 @@ export const Card = ({
                             <img src={favoriteHeart} alt="liked"/>
                         </div>}
                         <img width={133} height={122} src={imageUrl} alt="shoes"/>
-                        {onPlus && sizes.map(size => (
+                        {onPlus && sizes.map((size, index) => (
                             <div
-                                className={`${styles.sizes} ${!size.available ? styles.disabled : ''}`}
+                                className={`${styles.sizes} ${!size.available ? styles.disabled : ''} ${index === activeIndex ? styles.active : ''}`}
                                 key={size.size}
+                                onClick={() => handleClick(index)}
+                                size={size.size}
                             >
                                 {size.size}
                             </div>
                         ))}
                         <h5>{title}</h5>
+                        {size && <div>Размер: {size}</div>}
                         <div className="d-flex justify-between align-center">
                             <div className="d-flex flex-column">
                                 <span>Цена: </span>

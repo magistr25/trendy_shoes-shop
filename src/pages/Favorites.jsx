@@ -13,6 +13,7 @@ export const Favorites = ({
                               onChangeSearchInput,
                               searchValue
 
+
                           }) => {
 
     return (

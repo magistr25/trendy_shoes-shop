@@ -43,19 +43,37 @@
 
   .sizes {
     font-size: 13px;
-    color: darkblue;
+    color: rgb(23, 132, 173);
     display: inline-block;
     margin-right: 5px;
     border: 1px solid grey;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+
+    &:hover {
+      background-color: lightgrey;
+      border-color: rgb(23, 132, 173);
+    }
+
+    &:active {
+      background-color: rgb(23, 132, 173);
+      color: white;
+    }
+
+    &.active {
+      background-color: rgb(23, 132, 173);
+      color: white;
+
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      color: slategrey;
+      pointer-events: none;
+    }
   }
 
-  .disabled {
-    opacity: 0.5;
-    color: slategrey;
-    pointer-events: none;
-  }
+
 }
 

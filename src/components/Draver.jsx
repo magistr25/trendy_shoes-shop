@@ -45,7 +45,7 @@ export const Draver = ({ onRemoveItem, onCloseCart, numberOfOrder, items = [], c
                     <div className="d-flex flex-column flex">
                         <div className="items">
                             {items.map((obj) => (
-                                <div key={obj.itemId} className="cartItem d-flex align-center mb-20">
+                                <div key={obj.itemId+obj.size+obj.id} className="cartItem d-flex align-center mb-20">
                                     <div
                                         className="cartItemImg"
                                         style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${obj.imageUrl})` }}
@@ -53,6 +53,7 @@ export const Draver = ({ onRemoveItem, onCloseCart, numberOfOrder, items = [], c
                                     <div className="mr-20 flex">
                                         <p className="mb-5">{obj.title}</p>
                                         <b>{obj.price} руб.</b>
+                                        <div>Размер: {obj.size}</div>
                                     </div>
                                     <img
                                         onClick={() => onRemoveItem(obj.id, obj.cartId)}

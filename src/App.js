@@ -64,6 +64,7 @@ function App() {
 
             const response = await axios.post('https://6676e5ff145714a1bd731f73.mockapi.io/favorites', obj);
             setFavoriteItems(prev => [...prev, response.data]);
+
         } catch (error) {
             console.error('Ошибка при добавлении товара в избранное:', error);
         }

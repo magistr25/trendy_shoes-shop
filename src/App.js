@@ -156,7 +156,7 @@ function App() {
 
                 <Routes>
                     <Route
-                        path='/'
+                        path='/trendy_shoes-shop/'
                         element={<Home
                             items={items}
                             cartItems={cartItems}

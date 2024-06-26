@@ -92,7 +92,7 @@ export const Orders = () => {
                     )}
                 </div>
             )}
-            <Link to="/">
+            <Link to="/trendy_shoes-shop/">
                 <button className="blueButton d-block mt-20">
                     <img src={`${process.env.PUBLIC_URL}/img/arrow.svg`} alt="Arrow"/>
                     Вернуться назад

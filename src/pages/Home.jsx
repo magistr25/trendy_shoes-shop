@@ -39,7 +39,7 @@ export const Home = ({ items, cartItems, setCartItems, searchValue, onChangeSear
     return (
         <div className= "content p-40 ">
             <div className="d-flex justify-between align-center banner">
-                <img className="br-20" src={`${process.env.PUBLIC_URL}img/banner.png`}
+                <img className="br-20" src={`${process.env.PUBLIC_URL}/img/banner.png`}
                      alt="" width={1000} height={500}/>
                 <button onClick={() => scrollToRef()}/>
             </div>

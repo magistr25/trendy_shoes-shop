@@ -93,9 +93,11 @@ export const Card = ({
                 </ContentLoader>)
                 : (<>
                         {onAddToFavorite && <div className="favorite" onClick={onClickFavorite}>
-                            <img src={favoriteHeart} alt="liked"/>
+                            <img src= {favoriteHeart} alt="liked"/>
                         </div>}
-                        <img width={133} height={122} src={imageUrl} alt="shoes"/>
+
+                        <img width={133} height={122} src={`${process.env.PUBLIC_URL}${imageUrl}`} alt="shoes"/>
+
                         {onPlus && sizes.map((size, index) => (
                             <div
                                 key={size.size}

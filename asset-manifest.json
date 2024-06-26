@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/trendy_shoes-shop/static/css/main.2e83923e.css",
-    "main.js": "/trendy_shoes-shop/static/js/main.2f8fdcee.js",
+    "main.js": "/trendy_shoes-shop/static/js/main.a9a9bc64.js",
     "index.html": "/trendy_shoes-shop/index.html",
     "main.2e83923e.css.map": "/trendy_shoes-shop/static/css/main.2e83923e.css.map",
-    "main.2f8fdcee.js.map": "/trendy_shoes-shop/static/js/main.2f8fdcee.js.map"
+    "main.a9a9bc64.js.map": "/trendy_shoes-shop/static/js/main.a9a9bc64.js.map"
   },
   "entrypoints": [
     "static/css/main.2e83923e.css",
-    "static/js/main.2f8fdcee.js"
+    "static/js/main.a9a9bc64.js"
   ]
 }

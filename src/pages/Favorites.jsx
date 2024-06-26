@@ -40,16 +40,15 @@ export const Favorites = ({
                         />))
                     : (<div className="favorites"><h2 className="d-flex align-center justify-between p-40">У вас ещё нет товаров в
                         закладках... 😢</h2>
-                        <Link to={"/trendy_shoes-shop/"}>
-                            <button className="blueButton">
-                            <img src={`${process.env.PUBLIC_URL}/img/arrow.svg`} alt="Arrow"/>
-                                Вернуться назад
-                            </button>
-                        </Link>
                     </div>)
-
                 }
             </div>
+            <Link className="favorites" to={"/trendy_shoes-shop/"}>
+                <button className="blueButton">
+                    <img src={`${process.env.PUBLIC_URL}/img/arrow.svg`} alt="Arrow"/>
+                    Вернуться назад
+                </button>
+            </Link>
         </div>
     );
 };
